@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.jobstore.domain.Company;
 import org.jobstore.repository.CompanyRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,11 +22,8 @@ public class CompanyResource {
 	@Autowired
 	private CompanyRepository companyRepository;
 
-	Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Company> createNewCompany(@RequestBody Company company) {
-		logger.info(company.toString());
 		Company existingCompany = companyRepository.findByName(company.getName());
 		if(existingCompany != null){
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
